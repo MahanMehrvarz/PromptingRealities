@@ -94,6 +94,18 @@ This repository accompanies the publication:
 In *CHItaly 2025: 16th Biannual Conference of the Italian SIGCHI Chapter*, Salerno, Italy.  
 [https://doi.org/10.1145/3750069.3750089](https://doi.org/10.1145/3750069.3750089)
 
+For a broader perspective on the project, see:
+
+**Mahan Mehrvarz.**  
+*Prompting Realities: Reappropriating Tangible Artifacts Through Conversation.*  
+In *interactions*, Volume 32, Issue 4, July 2025, pages 10–11.  
+[https://doi.org/10.1145/3742782](https://doi.org/10.1145/3742782)
+
+## Project Links
+
+- Prompting Realities overview: [https://mahanmehrvarz.name/promptingrealities/](https://mahanmehrvarz.name/promptingrealities/)
+- 4TU Design United project page: [https://www.4tu.nl/du/projects/Prompting-Realities/](https://www.4tu.nl/du/projects/Prompting-Realities/)
+
 The pipeline operationalizes the interaction model described in the paper and opens it up as a reusable framework.
 
 ---
@@ -102,7 +114,8 @@ The pipeline operationalizes the interaction model described in the paper and op
 
 - Explore `core/main/` for the baseline assistant configuration and runtime scripts. This is useful in accuiring a deeper understanding of the paper and the windmill prototype.
 - Check `core/TelegramBot-Integration/` if you plan to deploy via Telegram; this variant wraps the assistant a SQLite log so you can run multi-user chats, handle voice messages, and expose the same MQTT controls through Telegram application available on most of the operating systems.
-- Start with `examples/RGBLED-assistant/` to see the full stack in action.
+- Use `examples/RGBLED-assistant/` as a scaffold when adapting the pipeline to new hardware or interaction scenarios.
+- **Upcoming change:** The current runtime relies on the OpenAI Assistants API, which is being phased out in favor of the Conversations API. A migrated version of this project targeting Conversations will be added here once available.
 
 ---
 
@@ -110,4 +123,3 @@ The pipeline operationalizes the interaction model described in the paper and op
 ---
 
 Maintained by [Mahan Mehrvarz](https://MahanMehrvarz.name) - AI Futures Lab, TU Delft.
-
