@@ -40,11 +40,9 @@ Each interaction loops through an LLM that interprets the user request (with gui
 - `core/` - Main implementation space with scripts and configuration for production-style assistants.
   - `core/main/` - Default assistant runtime for local experimentation, including schemas, state files, and entry-point scripts.
   - `core/TelegramBot-Integration/` - Telegram-focused runtime that mirrors the core logic and adds bot-specific wiring plus a lightweight SQLite database.
-  - `core/.vscode/` - VS Code settings that keep linting and interpreter choices consistent across collaborators.
   - `core/.conda/` - Conda environment snapshot with pinned binaries and metadata for reproducing the runtime.
 - `examples/` - Reference projects that show how to adapt the assistant for concrete scenarios.
   - `examples/RGBLED-assistant/` - Working demo that pairs the assistant with an Arduino RGB LED sketch, including Python glue code, firmware, and documentation.
-- `.vscode/` - Workspace-wide editor configuration.
 - `.conda/` - Root-level Conda environment mirror.
 - `.gitignore` - Git rules that keep transient logs, environments, and generated files out of version control.
 
