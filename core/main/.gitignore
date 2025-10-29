@@ -16,3 +16,6 @@ assistant_state.json
 
 # macOS
 .DS_Store
+
+# Editor settings
+.vscode/

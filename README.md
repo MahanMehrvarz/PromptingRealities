@@ -37,16 +37,16 @@ Each interaction loops through an LLM that interprets the user request (with gui
 
 ## Folder Guide
 
-- `core/` — Main implementation space with scripts and configuration for production-style assistants.
-  - `core/main/` — Default assistant runtime for local experimentation, including schemas, state files, and entry-point scripts.
-  - `core/TelegramBot-Integration/` — Telegram-focused runtime that mirrors the core logic and adds bot-specific wiring plus a lightweight SQLite database.
-  - `core/.vscode/` — VS Code settings that keep linting and interpreter choices consistent across collaborators.
-  - `core/.conda/` — Conda environment snapshot with pinned binaries and metadata for reproducing the runtime.
-- `examples/` — Reference projects that show how to adapt the assistant for concrete scenarios.
-  - `examples/RGBLED-assistant/` — Working demo that pairs the assistant with an Arduino RGB LED sketch, including Python glue code, firmware, and documentation.
-- `.vscode/` — Workspace-wide editor configuration.
-- `.conda/` — Root-level Conda environment mirror.
-- `.gitignore` — Git rules that keep transient logs, environments, and generated files out of version control.
+- `core/` - Main implementation space with scripts and configuration for production-style assistants.
+  - `core/main/` - Default assistant runtime for local experimentation, including schemas, state files, and entry-point scripts.
+  - `core/TelegramBot-Integration/` - Telegram-focused runtime that mirrors the core logic and adds bot-specific wiring plus a lightweight SQLite database.
+  - `core/.vscode/` - VS Code settings that keep linting and interpreter choices consistent across collaborators.
+  - `core/.conda/` - Conda environment snapshot with pinned binaries and metadata for reproducing the runtime.
+- `examples/` - Reference projects that show how to adapt the assistant for concrete scenarios.
+  - `examples/RGBLED-assistant/` - Working demo that pairs the assistant with an Arduino RGB LED sketch, including Python glue code, firmware, and documentation.
+- `.vscode/` - Workspace-wide editor configuration.
+- `.conda/` - Root-level Conda environment mirror.
+- `.gitignore` - Git rules that keep transient logs, environments, and generated files out of version control.
 
 ---
 
@@ -59,10 +59,10 @@ Each interaction loops through an LLM that interprets the user request (with gui
    ```
 2. **Prepare a virtual environment**
    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install openai paho-mqtt sounddevice webrtcvad python-dotenv
-    cp .env.example .env
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install openai paho-mqtt sounddevice webrtcvad python-dotenv
+   cp .env.example .env
    ```
    Add your API key, MQTT broker details, and any custom parameters to `.env`.
 3. **Run the assistant**
@@ -77,11 +77,11 @@ Each interaction loops through an LLM that interprets the user request (with gui
 
 ## Extending the Pipeline
 
-1. **Describe the interaction model** — Update `assistant_instructions.md` with the behaviors your artifact should support.
-2. **Shape the structured output** — Adjust `assistant_response_schema.json` to match the payload your firmware expects.
-3. **Build or adapt firmware** — Program your microcontroller to parse that JSON and perform the intended action.
-4. **Align the transport layer** — Configure MQTT (or your preferred channel) so topics and payloads match the assistant logic.
-5. **Iterate through prompting** — Refine instructions, memory, and example interactions as you observe real-world usage.
+1. **Describe the interaction model** - Update `assistant_instructions.md` with the behaviors your artifact should support.
+2. **Shape the structured output** - Adjust `assistant_response_schema.json` to match the payload your firmware expects.
+3. **Build or adapt firmware** - Program your microcontroller to parse that JSON and perform the intended action.
+4. **Align the transport layer** - Configure MQTT (or your preferred channel) so topics and payloads match the assistant logic.
+5. **Iterate through prompting** - Refine instructions, memory, and example interactions as you observe real-world usage.
 
 The `examples/` directory provides a template you can clone and modify for new artifacts.
 
@@ -115,5 +115,4 @@ Specify your preferred license (for example MIT or CC BY-NC-ND 4.0).
 
 ---
 
-Maintained by [Mahan Mehrvarz](https://github.com/MahanMehrvarz) — AI Futures Lab, TU Delft.
-
+Maintained by [Mahan Mehrvarz](https://github.com/MahanMehrvarz) - AI Futures Lab, TU Delft.
