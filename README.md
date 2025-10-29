@@ -40,10 +40,9 @@ Each interaction loops through an LLM that interprets the user request (with gui
 - `core/` - Main implementation space with scripts and configuration for production-style assistants.
   - `core/main/` - Default assistant runtime for local experimentation, including schemas, state files, and entry-point scripts.
   - `core/TelegramBot-Integration/` - Telegram-focused runtime that mirrors the core logic and adds bot-specific wiring plus a lightweight SQLite database.
-  - `core/.conda/` - Conda environment snapshot with pinned binaries and metadata for reproducing the runtime.
+  - `core/circuitpython/` - CircuitPython sketches and hardware notes that define the expected devices and MQTT payload handling.
 - `examples/` - Reference projects that show how to adapt the assistant for concrete scenarios.
   - `examples/RGBLED-assistant/` - Working demo that pairs the assistant with an Arduino RGB LED sketch, including Python glue code, firmware, and documentation.
-- `.conda/` - Root-level Conda environment mirror.
 - `.gitignore` - Git rules that keep transient logs, environments, and generated files out of version control.
 
 ---
@@ -67,9 +66,9 @@ Each interaction loops through an LLM that interprets the user request (with gui
    ```bash
    python Simple-assistant.py
    ```
-   The script listens for natural-language input and emits JSON payloads that can drive a connected device via MQTT.
-4. **Test the RGB LED workflow**
-   Visit `examples/RGBLED-assistant/README.md` for an end-to-end demo that combines the assistant runtime with Arduino firmware.
+   The script listens for natural-language input and publishes MQTT messages to the broker and topic you configured in `.env`.
+4. **Recreate the physical setup**
+   Match the wiring and device properties defined in the CircuitPython reference found in `core/circuitpython/`. The hardware must interpret the MQTT payloads exactly as described there for the loop to function.
 
 ---
 
