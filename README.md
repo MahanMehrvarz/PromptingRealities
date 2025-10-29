@@ -38,11 +38,12 @@ Each interaction loops through an LLM that interprets the user request (with gui
 ## Folder Guide
 
 - `core/` - Main implementation space with scripts and configuration for production-style assistants.
-  - `core/main/` - Default assistant runtime for local experimentation, including schemas, state files, and entry-point scripts.
+  - `core/main/` - Default assistant runtime for local experimentation, including schemas, state files, and entry-point scripts. This is the exact codebase used for the windmill prototype described in the paper; reproducing its behavior requires recreating an equivalent hardware configuration.
   - `core/TelegramBot-Integration/` - Telegram-focused runtime that mirrors the core logic and adds bot-specific wiring plus a lightweight SQLite database.
   - `core/circuitpython/` - CircuitPython sketches and hardware notes that define the expected devices and MQTT payload handling.
 - `examples/` - Reference projects that show how to adapt the assistant for concrete scenarios.
   - `examples/RGBLED-assistant/` - Working demo that pairs the assistant with an Arduino RGB LED sketch, including Python glue code, firmware, and documentation.
+  - Use these examples as templates when adapting the pipeline to new hardware.
 - `.gitignore` - Git rules that keep transient logs, environments, and generated files out of version control.
 
 ---
@@ -74,17 +75,17 @@ Each interaction loops through an LLM that interprets the user request (with gui
 
 ## Extending the Pipeline
 
-1. **Describe the interaction model** - Update `assistant_instructions.md` with the behaviors your artifact should support.
-2. **Shape the structured output** - Adjust `assistant_response_schema.json` to match the payload your firmware expects.
+1. **Describe the interaction model** - Update `assistant_instructions.md` with the behaviors your artifact should support; this is where the assistant agent learns about its appearance, capabilities, and how it should treat user messages.
+2. **Shape the structured output** - Adjust `assistant_response_schema.json` to match the payload your firmware expects. Structured response formats are now native features in many modern language models; tailor the JSON schema so your microcontroller (Arduino, CircuitPython, etc.) can parse the MQTT message and update device values to trigger the correct physical actuation.
 3. **Build or adapt firmware** - Program your microcontroller to parse that JSON and perform the intended action.
-4. **Align the transport layer** - Configure MQTT (or your preferred channel) so topics and payloads match the assistant logic.
-5. **Iterate through prompting** - Refine instructions, memory, and example interactions as you observe real-world usage.
+4. **Align the transport layer** - Configure MQTT (or your preferred channel) so topics and payloads match the assistant logic. Any broker will work, though the prototype uses [shiftr.io](https://shiftr.io/); if you are new to that service, this introduction is a useful primer: https://netart.ca/patterns/mqtt/introduction-to-shiftr-io/.
+5. **Iterate through prompting** - Refine instructions, memory, and example interactions as you observe real-world usage. The CLI includes a `/help` command that lists shortcuts (such as toggling text/voice input or restarting the session); use these to test different conversational paths quickly, keeping in mind that restarting clears the conversation thread and removes prior context.
 
 The `examples/` directory provides a template you can clone and modify for new artifacts.
 
 ---
 
-## Research Context
+## Publication
 
 This repository accompanies the publication:
 
@@ -99,17 +100,14 @@ The pipeline operationalizes the interaction model described in the paper and op
 
 ## Next Steps
 
-- Explore `core/main/` for the baseline assistant configuration and runtime scripts.
-- Check `core/TelegramBot-Integration/` if you plan to deploy via Telegram.
+- Explore `core/main/` for the baseline assistant configuration and runtime scripts. This is useful in accuiring a deeper understanding of the paper and the windmill prototype.
+- Check `core/TelegramBot-Integration/` if you plan to deploy via Telegram; this variant wraps the assistant a SQLite log so you can run multi-user chats, handle voice messages, and expose the same MQTT controls through Telegram application available on most of the operating systems.
 - Start with `examples/RGBLED-assistant/` to see the full stack in action.
-- Watch for upcoming docs in `core/main/docs/` covering architecture and extension guides.
 
 ---
 
-## License
-
-Specify your preferred license (for example MIT or CC BY-NC-ND 4.0).
 
 ---
 
-Maintained by [Mahan Mehrvarz](https://github.com/MahanMehrvarz) - AI Futures Lab, TU Delft.
+Maintained by [Mahan Mehrvarz](https://MahanMehrvarz.name) - AI Futures Lab, TU Delft.
+

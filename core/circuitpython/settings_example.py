@@ -7,9 +7,8 @@ on the device.
 
 settings = {
     "broker": "your-broker.example.com",
+    "topic": "wind",
     "mqtt_user": "your-mqtt-username",
     "mqtt_password": "your-mqtt-password",
-    "telepotToken": "your-telegram-token",
     "client_id": "CircuitPythonClient",
-    "openAIToken": "your-openai-token",
 }
