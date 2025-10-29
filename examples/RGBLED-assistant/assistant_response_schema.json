@@ -1,0 +1,29 @@
+{
+  "name": "circle",
+  "strict": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "response": {
+        "type": "string"
+      },
+      "values": {
+        "type": "object",
+        "properties": {
+          "led": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          }
+        },
+        "required": ["led"],
+        "additionalProperties": false
+      }
+    },
+    "required": ["response", "values"],
+    "additionalProperties": false
+  }
+}
