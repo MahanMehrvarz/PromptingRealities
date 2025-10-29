@@ -1,0 +1,18 @@
+# Environment configuration
+.env
+.env.*
+!.env.example
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Logs and runtime state
+*.log
+assistant_state.json
+
+# macOS
+.DS_Store
