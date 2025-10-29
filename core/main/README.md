@@ -38,7 +38,7 @@ Open `.env` in an editor and fill in the required values. The keys below match w
 OPENAI_API_KEY=sk-YOUR_OPENAI_KEY
 MQTT_BROKER=mqtt.example.com
 MQTT_PORT=1883               # adjust if your broker uses a custom port
-MQTT_TOPIC=windmills/state
+MQTT_TOPIC=wind
 MQTT_USER=your-mqtt-username  # leave blank if broker allows anonymous access
 MQTT_PASSWORD=your-mqtt-password
 MQTT_CLIENT_ID=windmill-assistant

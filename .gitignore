@@ -6,3 +6,4 @@ __pycache__/
 **/.conda/
 *.env
 .vscode/
+core/P5-demo/config.js
