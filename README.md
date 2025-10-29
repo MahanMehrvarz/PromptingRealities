@@ -106,6 +106,16 @@ In *interactions*, Volume 32, Issue 4, July 2025, pages 10–11.
 - Prompting Realities overview: [https://mahanmehrvarz.name/promptingrealities/](https://mahanmehrvarz.name/promptingrealities/)
 - 4TU Design United project page: [https://www.4tu.nl/du/projects/Prompting-Realities/](https://www.4tu.nl/du/projects/Prompting-Realities/)
 
+## Assets
+
+Store repository visuals in `docs/assets/` and reference them in Markdown, for example: `![Windmill prototype](docs/assets/windmill.jpg)`.
+
+### Architecture Overview
+
+![Prompting Realities architecture diagram](docs/assets/Architecture-DIS.jpg)
+
+Refer to the CHItaly 2025 paper and the Interactions article cited above for a detailed walkthrough of each layer in this diagram.
+
 The pipeline operationalizes the interaction model described in the paper and opens it up as a reusable framework.
 
 ---
