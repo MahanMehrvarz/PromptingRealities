@@ -50,6 +50,20 @@ Key variables:
 
 To create or tweak the assistant prompt and JSON schema, follow the guidance in `core/main/README.md`. Once you update instructions or schema, obtain a fresh assistant ID and drop it here.
 
+## Create a Telegram Bot Via BotFather
+If you have never issued a Telegram bot token, follow these steps on your phone:
+
+1. Install the Telegram app and open it. Tap the magnifying glass icon in the top right to open search.
+2. Search for `BotFather` and confirm you’re opening the verified chat.
+   ![Search for BotFather](docs/images/telegram-search.webp)
+3. Open the verified BotFather conversation.
+   ![Open the BotFather chat](docs/images/botfather-chat.webp)
+4. Send the command `/newbot` and follow the prompts to pick a public-facing name plus a unique username ending in `bot`.
+5. BotFather replies with a summary that includes a deep link to your bot and the bot token. Copy the token into `TELEGRAM_BOT_TOKEN` in `.env` and keep it secret.
+   ![BotFather provides the bot link and token](docs/images/botfather-token.webp)
+
+Open the provided link to start a conversation with your new bot so the integration can message you back.
+
 ## Run the Bot
 
 ```bash
