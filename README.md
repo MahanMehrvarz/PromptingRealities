@@ -136,4 +136,4 @@ Prompting Realities was developed with the support of the [TU Delft StudioLab](h
 
 ---
 
-Maintained by [Mahan Mehrvarz](https://MahanMehrvarz.name) - AI Futures Lab, TU Delft.
+Maintained by [Mahan Mehrvarz](https://Mahanmehrvarz.name) 
