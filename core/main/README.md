@@ -3,8 +3,6 @@ The `core/main` directory hosts the baseline assistant used for the Prompting Re
 
 ![Windmill simulator showing P5.js preview of the windmill prototype](../../docs/assets/windmill-simulation.png)
 
-> Tip: Run the assistant alongside the P5.js simulator in `P5-simulation/` to verify JSON payloads before powering the physical windmill.
-
 ## Prerequisites
 - Python 3.10 or newer.
 - PortAudio development headers (required by `sounddevice`); install via Homebrew `brew install portaudio` or your platform's package manager before running `pip install`.
@@ -118,3 +116,5 @@ After editing the instructions file, delete `assistant_state.json` (or point `OP
 4. Your CircuitPython or microcontroller firmware listens to the topic, parses the JSON, and adjusts the physical artifact accordingly.
 
 This cycle repeats, letting you iterate on conversational instructions and hardware behavior in tandem. Use the default configuration as a template, then tailor the instructions, schema, and firmware to match new tangible scenarios.
+
+Before you adjust hardware properties or broker credentials, run the assistant alongside the P5.js simulator in `P5-simulation/`. It mirrors the MQTT wiring so you can validate JSON payloads safely before powering the physical windmill.
