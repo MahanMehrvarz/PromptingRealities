@@ -130,9 +130,12 @@ Refer to the CHItaly 2025 paper and the *interactions* article for a detailed ex
 
 ## Acknowledgements
 
-[![TU Delft StudioLab logo](docs/assets/studiolab-logo.png)](https://studiolab.ide.tudelft.nl/studiolab/)
+<p align="center">
+  <a href="https://studiolab.ide.tudelft.nl/"><img src="docs/assets/studiolab-logo.png" alt="TU Delft StudioLab logo" width="220"></a>
+  <a href="https://www.tudelft.nl/en/ide/research/research-labs/ai-futures-lab"><img src="docs/assets/AI-futures-lab-logo.png" alt="AI Futures Lab logo" width="220"></a>
+</p>
 
-Prompting Realities was developed with the support of the [TU Delft StudioLab](https://studiolab.ide.tudelft.nl/studiolab/), whose community and facilities helped shape the prototypes and research described here.
+Prompting Realities was developed with the support of the [TU Delft StudioLab](https://studiolab.ide.tudelft.nl/) and the [AI Futures Lab](https://www.tudelft.nl/en/ide/research/research-labs/ai-futures-lab), whose communities and facilities helped shape the prototypes and research described here.
 
 ---
 
