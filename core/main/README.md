@@ -1,6 +1,10 @@
 # Core Assistant Runtime
 The `core/main` directory hosts the baseline assistant used for the Prompting Realities windmill prototype. It wires together an OpenAI Assistant, an MQTT transport layer, and an audio-enabled command-line loop so you can prompt the sculpture in natural language and stream structured control messages to your hardware.
 
+![Windmill simulator showing P5.js preview of the windmill prototype](../../docs/assets/windmill-simulation.png)
+
+> Tip: Run the assistant alongside the P5.js simulator in `P5-simulation/` to verify JSON payloads before powering the physical windmill.
+
 ## Prerequisites
 - Python 3.10 or newer.
 - PortAudio development headers (required by `sounddevice`); install via Homebrew `brew install portaudio` or your platform's package manager before running `pip install`.
@@ -77,11 +81,11 @@ Command-line interaction (CML) operates in a continuous loop:
 - Type prompts directly for **text mode**.
 - Speak when **voice mode** is active; the audio is transcribed with the configured transcription model.
 - Use slash commands at any time:
-  - `/help` – list available commands.
-  - `/restart` – start a new OpenAI thread (clears conversation context).
-  - `/voice` / `/text` – switch between input modes.
-  - `/dev` – preview MQTT payloads without publishing them.
-  - `/quit` – exit the program.
+  - `/help` - list available commands.
+  - `/restart` - start a new OpenAI thread (clears conversation context).
+  - `/voice` / `/text` - switch between input modes.
+  - `/dev` - preview MQTT payloads without publishing them.
+  - `/quit` - exit the program.
 
 Each user message results in a JSON payload from the assistant. The human-readable reply is shown on screen, and the structured `values` object is published to your MQTT topic unless dev mode is enabled or the connection is unavailable.
 
@@ -94,7 +98,7 @@ Each user message results in a JSON payload from the assistant. The human-readab
   - `speed_old`, `dir_old`
   - `speed_reg`, `dir_reg`
 
-Speeds are floating-point numbers (0.0–0.95 in the default guidelines) and directions are integers restricted to `1` or `-1`. Your firmware subscribes to the configured MQTT topic and interprets these values to drive each windmill. When you adapt this project to new hardware, edit the schema so that it mirrors the fields your device requires, then point `OPENAI_ASSISTANT_SCHEMA_FILE` to the new JSON file.
+Speeds are floating-point numbers (0.0-0.95 in the default guidelines) and directions are integers restricted to `1` or `-1`. Your firmware subscribes to the configured MQTT topic and interprets these values to drive each windmill. When you adapt this project to new hardware, edit the schema so that it mirrors the fields your device requires, then point `OPENAI_ASSISTANT_SCHEMA_FILE` to the new JSON file.
 
 ## Crafting Assistant Instructions
 `assistant_instructions.md` describes the fiction, tone, and behavioral constraints for the assistant. The supplied version teaches the agent how to guide visitors, limit responses to <20 words, and output torque-friendly speed values for the three windmills.
@@ -103,11 +107,11 @@ When creating your own artifact:
 1. Rewrite the narrative so the assistant understands the appearance, capabilities, and limitations of your object.
 2. Spell out safety or range constraints the JSON must respect (e.g., valid speed ranges, discrete modes).
 3. Keep the instructions synced with the schema. If you add new JSON fields, explain how and when the assistant should populate them.
-4. Remember the end user never sees the JSON—only the `response` text—so direct behavioral cues must live in the instructions.
+4. Remember the end user never sees the JSON; only the `response` text, so direct behavioral cues must live in the instructions.
 
 After editing the instructions file, delete `assistant_state.json` (or point `OPENAI_ASSISTANT_STATE_FILE` to a new cache file) so the runtime creates a fresh assistant with your latest prompt.
 
-## Conversation → MQTT Flow
+## Conversation -> MQTT Flow
 1. **User input** (text or transcribed voice) is sent to the OpenAI Threads API.
 2. The assistant, configured by your instructions and schema, returns a JSON object.
 3. `Simple-assistant.py` prints the `response` string to the terminal, optionally displays the JSON in dev mode, and publishes the `values` object to your MQTT broker.

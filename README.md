@@ -74,11 +74,6 @@ The LLM reads user requests using the guidance in `assistant_instructions.md`, r
 5. **Wire up your hardware**  
    Match the device configuration described in `core/circuitpython/`. The firmware must parse the assistant's JSON and map it to the physical actuation you want.
 
-6. **Preview with the windmill simulator (optional)**  
-   Before building the windmill prototype, you can test prompt-to-action flows with the P5.js simulator in `core/main/P5-simulation/`. Open `index.html` in a local web server or your browser, run the assistant, and watch the virtual windmill respond to incoming MQTT payloads.
-
-   ![Windmill simulator showing P5.js preview of the windmill prototype](docs/assets/windmill-simulation.png)
-
 ---
 
 ## Customising the Pipeline
