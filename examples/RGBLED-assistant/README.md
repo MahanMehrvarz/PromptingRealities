@@ -12,7 +12,7 @@ An interactive Python assistant that listens for voice or text requests, asks Op
 ## Prerequisites
 
 - Python 3.10+ with `pip`.
-- An ESP32-based microcontroller (XIAO ESP32S3 recommended) wired to a 5 V NeoPixel LED on pin `D6`.
+- An ESP32-based microcontroller (XIAO ESP32S3 recommended) wired to a 5 V NeoPixel LED on pin `D6`.
 - Access to an MQTT broker (Shiftr, Mosquitto, or any MQTT service with TLS/credentials support).
 - An OpenAI API key with access to the Assistants and transcription endpoints.
 - Working microphone and speakers on the machine running the assistant.
@@ -72,6 +72,18 @@ WELCOME_MESSAGE=Hello! Ask your question or use /help for commands.
 
 ---
 
+## Test the flow with the P5.js simulator (optional)
+
+Before you build the hardware, you can run a browser-based simulation that mirrors the assistant's MQTT payloads.
+
+1. Open `p5-led-simulator/index.html` in your browser (serve it locally if your browser blocks file URLs).
+2. Start the assistant with `python rgb_led_assistant.py`.
+3. Trigger a few requests and watch the simulated LED reflect colour and brightness changes in real time.
+
+![Screenshot of the P5.js RGB LED simulator tuned to the assistant output](../../docs/assets/p5-led-simulation.png)
+
+---
+
 ## Flash the ESP32 firmware
 
 The `rgb_led_arduino_demo.ino` sketch connects to WiFi, subscribes to the `MQTT_TOPIC`, and updates a NeoPixel with the payload received from the assistant.
@@ -94,7 +106,7 @@ python rgb_led_assistant.py
 ```
 
 - The assistant greets you (`WELCOME_MESSAGE`), calibrates the microphone, and attempts an MQTT connection.
-- Type or speak your request (e.g., “Set the LED to soft orange at half brightness”). The assistant replies and publishes the corresponding RGB payload.
+- Type or speak your request (e.g., "Set the LED to soft orange at half brightness"). The assistant replies and publishes the corresponding RGB payload.
 - If the MQTT connection fails, the assistant continues in local-only mode so you can still interact and preview payloads.
 
 ### Command shortcuts
@@ -144,4 +156,3 @@ python rgb_led_assistant.py
 - Update this README with photos of your hardware setup or screenshots of your Shiftr configuration.
 - Consider adding a `CONTRIBUTING.md` with coding style and testing expectations if you plan to collaborate.
 - For multi-LED strips, extend the JSON schema and Arduino sketch to handle arrays of pixels or animation commands.
-
