@@ -1,18 +1,15 @@
 # Prompting Realities
 **Exploring Prompting as an Interface for Tangible Artifacts**
 
-Prompting Realities is a reusable experimental pipeline that links natural-language interaction to physical artifacts. It lets researchers, designers, and makers describe actions in plain language and have tangible devices carry them out through structured AI output.
+Prompting Realities is a reusable pipeline that connects natural-language interaction to physical artifacts. It helps researchers, designers, and makers translate plain-language descriptions into structured outputs that real-world devices can act on.
 
-The repository serves as both
-
-- a research artifact expanding the work presented in *Prompting Realities: Exploring the Potentials of Prompting for Tangible Artifacts* (CHItaly 2025), and
-- a technical framework for implementing your own LLM-driven tangible systems.
+This repository is both a companion to the CHItaly 2025 paper *Prompting Realities: Exploring the Potentials of Prompting for Tangible Artifacts* and a starting point for building your own LLM-driven tangible systems.
 
 ---
 
-## Concept
+## How the System Flows
 
-At its core, the pipeline translates prompts into structured data and then into physical actuation.
+At a glance, each interaction moves from a conversation to an actuation loop:
 
 ```
 User prompt
@@ -22,7 +19,7 @@ Large Language Model (LLM)
   |
   | produces JSON payload
   v
-MQTT broker / local transport
+MQTT broker or local transport
   |
   v
 Physical device (Arduino / ESP32 / other)
@@ -31,104 +28,103 @@ Physical device (Arduino / ESP32 / other)
 Tangible response
 ```
 
-Each interaction loops through an LLM that interprets the user request (with guidance from `assistant_instructions.md`), emits machine-readable output (`assistant_response_schema.json`), and triggers real-world behavior through connected hardware.
+The LLM reads user requests using the guidance in `assistant_instructions.md`, responds with structured data defined by `assistant_response_schema.json`, and triggers behavior on connected hardware through MQTT or an equivalent transport.
 
 ---
 
-## Folder Guide
+## Repository Tour
 
-- `core/` - Main implementation space with scripts and configuration for production-style assistants.
-  - `core/main/` - Default assistant runtime for local experimentation, including schemas, state files, and entry-point scripts. This is the exact codebase used for the windmill prototype described in the paper; reproducing its behavior requires recreating an equivalent hardware configuration.
-  - `core/TelegramBot-Integration/` - Telegram-focused runtime that mirrors the core logic and adds bot-specific wiring plus a lightweight SQLite database.
-  - `core/circuitpython/` - CircuitPython sketches and hardware notes that define the expected devices and MQTT payload handling.
-- `examples/` - Reference projects that show how to adapt the assistant for concrete scenarios.
-  - `examples/RGBLED-assistant/` - Working demo that pairs the assistant with an Arduino RGB LED sketch, including Python glue code, firmware, and documentation.
-  - Use these examples as templates when adapting the pipeline to new hardware.
-- `.gitignore` - Git rules that keep transient logs, environments, and generated files out of version control.
+- `core/`: Main implementation space.
+  - `core/main/`: Default runtime used for the windmill prototype featured in the paper, including schemas, state files, and entry points for local experiments.
+  - `core/TelegramBot-Integration/`: Telegram bot runtime that mirrors the core logic, adds bot wiring, and logs activity in a lightweight SQLite database.
+  - `core/circuitpython/`: CircuitPython sketches and notes describing expected devices and MQTT payload handling.
+- `examples/`: Reference projects that show how to adapt the assistant to different devices and scenarios.
+  - `examples/RGBLED-assistant/`: End-to-end demo that couples the assistant with an Arduino RGB LED sketch, Python glue code, and firmware.
+- `docs/assets/`: Shared visuals such as the architecture diagram.
+- `.gitignore`: Patterns that keep transient files, logs, and local environments out of version control.
 
 ---
 
-## Quick Start
+## Getting Started
 
-1. **Clone the project**
+1. **Install prerequisites**  
+   You will need Python 3.9+ and an MQTT broker (local or hosted, such as [shiftr.io](https://shiftr.io/)). The examples assume `pip` is available.
+
+2. **Clone the repository**
    ```bash
    git clone https://github.com/MahanMehrvarz/PromptingRealities.git
    cd PromptingRealities/core/main
    ```
-2. **Prepare a virtual environment**
+
+3. **Create and activate a virtual environment**
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    pip install openai paho-mqtt sounddevice webrtcvad python-dotenv
    cp .env.example .env
    ```
-   Add your API key, MQTT broker details, and any custom parameters to `.env`.
-3. **Run the assistant**
+   Edit `.env` to add your OpenAI API key, MQTT broker credentials, and any custom parameters.
+
+4. **Run the assistant**
    ```bash
    python Simple-assistant.py
    ```
-   The script listens for natural-language input and publishes MQTT messages to the broker and topic you configured in `.env`.
-4. **Recreate the physical setup**
-   Match the wiring and device properties defined in the CircuitPython reference found in `core/circuitpython/`. The hardware must interpret the MQTT payloads exactly as described there for the loop to function.
+   The CLI listens for natural-language input, produces JSON responses, and publishes them to the MQTT topic specified in `.env`.
+
+5. **Wire up your hardware**  
+   Match the device configuration described in `core/circuitpython/`. The firmware must parse the assistant's JSON and map it to the physical actuation you want.
 
 ---
 
-## Extending the Pipeline
+## Customising the Pipeline
 
-1. **Describe the interaction model** - Update `assistant_instructions.md` with the behaviors your artifact should support; this is where the assistant agent learns about its appearance, capabilities, and how it should treat user messages.
-2. **Shape the structured output** - Adjust `assistant_response_schema.json` to match the payload your firmware expects. Structured response formats are now native features in many modern language models; tailor the JSON schema so your microcontroller (Arduino, CircuitPython, etc.) can parse the MQTT message and update device values to trigger the correct physical actuation.
-3. **Build or adapt firmware** - Program your microcontroller to parse that JSON and perform the intended action.
-4. **Align the transport layer** - Configure MQTT (or your preferred channel) so topics and payloads match the assistant logic. Any broker will work, though the prototype uses [shiftr.io](https://shiftr.io/); if you are new to that service, this introduction is a useful primer: https://netart.ca/patterns/mqtt/introduction-to-shiftr-io/.
-5. **Iterate through prompting** - Refine instructions, memory, and example interactions as you observe real-world usage. The CLI includes a `/help` command that lists shortcuts (such as toggling text/voice input or restarting the session); use these to test different conversational paths quickly, keeping in mind that restarting clears the conversation thread and removes prior context.
+1. **Shape the interaction** - Update `assistant_instructions.md` with how your artifact behaves, what sensors or actuators it exposes, and how the assistant should respond to users.
+2. **Define structured output** - Adjust `assistant_response_schema.json` so the assistant returns exactly the payload your device expects. Most recent LLMs support constrained JSON output, which keeps parsing reliable on the hardware side.
+3. **Implement firmware** - Write or adapt microcontroller code that reads the JSON and performs the requested action.
+4. **Align transport settings** - Configure MQTT topics and broker credentials (or your preferred transport) so the assistant and device share a common channel.
+5. **Test and iterate** - Use the CLI `/help` command to see shortcuts for toggling text or voice input, clearing state, and restarting sessions while you refine prompts and responses.
 
-The `examples/` directory provides a template you can clone and modify for new artifacts.
+The `examples/` directory is a good starting point when building for new hardware.
 
 ---
 
-## Publication
+## Research Background
 
-This repository accompanies the publication:
+This repository accompanies:
 
 **Mahan Mehrvarz, Dave Murray-Rust, and Himanshu Verma.**  
 *Prompting Realities: Exploring the Potentials of Prompting for Tangible Artifacts.*  
 In *CHItaly 2025: 16th Biannual Conference of the Italian SIGCHI Chapter*, Salerno, Italy.  
 [https://doi.org/10.1145/3750069.3750089](https://doi.org/10.1145/3750069.3750089)
 
-For a broader perspective on the project, see:
+For a broader reflection on the project:
 
 **Mahan Mehrvarz.**  
 *Prompting Realities: Reappropriating Tangible Artifacts Through Conversation.*  
-In *interactions*, Volume 32, Issue 4, July 2025, pages 10–11.  
+In *interactions*, Volume 32, Issue 4, July 2025, pages 10-11.  
 [https://doi.org/10.1145/3742782](https://doi.org/10.1145/3742782)
 
-## Project Links
+Additional project links:
 
-- Prompting Realities overview: [https://mahanmehrvarz.name/promptingrealities/](https://mahanmehrvarz.name/promptingrealities/)
-- 4TU Design United project page: [https://www.4tu.nl/du/projects/Prompting-Realities/](https://www.4tu.nl/du/projects/Prompting-Realities/)
+- Overview site: [https://mahanmehrvarz.name/promptingrealities/](https://mahanmehrvarz.name/promptingrealities/)
+- 4TU Design United: [https://www.4tu.nl/du/projects/Prompting-Realities/](https://www.4tu.nl/du/projects/Prompting-Realities/)
 
-## Assets
+---
 
-Store repository visuals in `docs/assets/` and reference them in Markdown, for example: `![Windmill prototype](docs/assets/windmill.jpg)`.
+## Architecture Overview
 
-### Architecture Overview
+![Prompting Realities architecture diagram](docs/assets/Architecture-DIS.jpg "LLM-to-hardware pipeline showing prompt -> structured response -> MQTT -> device")
 
-![Prompting Realities architecture diagram](docs/assets/Architecture-DIS.jpg)
-
-Refer to the CHItaly 2025 paper and the Interactions article cited above for a detailed walkthrough of each layer in this diagram.
-
-The pipeline operationalizes the interaction model described in the paper and opens it up as a reusable framework.
+Refer to the CHItaly 2025 paper and the *interactions* article for a detailed explanation of each layer represented in the diagram.
 
 ---
 
 ## Next Steps
 
-- Explore `core/main/` for the baseline assistant configuration and runtime scripts. This is useful in accuiring a deeper understanding of the paper and the windmill prototype.
-- Check `core/TelegramBot-Integration/` if you plan to deploy via Telegram; this variant wraps the assistant a SQLite log so you can run multi-user chats, handle voice messages, and expose the same MQTT controls through Telegram application available on most of the operating systems.
-- Use `examples/RGBLED-assistant/` as a scaffold when adapting the pipeline to new hardware or interaction scenarios.
-- **Upcoming change:** The current runtime relies on the OpenAI Assistants API, which is being phased out in favor of the Conversations API. A migrated version of this project targeting Conversations will be added here once available.
-
----
-
+- Explore `core/main/` to understand the baseline runtime that powered the windmill prototype.
+- Visit `core/TelegramBot-Integration/` if you plan to deploy via Telegram; this variant wraps the assistant with a SQLite log, supports multi-user chats, and handles voice messages.
+- Start from `examples/RGBLED-assistant/` when adapting the pipeline to other hardware or interaction scenarios.
+- **Upcoming change:** The current implementation targets the OpenAI Assistants API. A Conversations API version will be added when available.
 
 ---
 
