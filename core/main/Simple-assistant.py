@@ -94,7 +94,6 @@ class MQTTClient:
         try:
             self.client.publish(topic, payload)
             print("\n")
-            print("////To see preset commands type /help")
             return True
         except Exception as exc:
             print(f"Failed to publish MQTT message: {exc}")
