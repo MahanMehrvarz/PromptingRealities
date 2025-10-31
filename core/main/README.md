@@ -1,7 +1,7 @@
 # Core Assistant Runtime
 The `core/main` directory hosts the baseline assistant used for the Prompting Realities windmill prototype. It wires together an OpenAI Assistant, an MQTT transport layer, and an audio-enabled command-line loop so you can prompt the sculpture in natural language and stream structured control messages to your hardware.
 
-<img src="../../docs/assets/windmill-simulation.png" alt="Windmill simulator showing P5.js preview of the windmill prototype" width="720" />
+![Windmill simulator showing P5.js preview of the windmill prototype](../../docs/assets/windmill-simulation.png)
 
 > Tip: Run the assistant alongside the P5.js simulator in `P5-simulation/` to verify JSON payloads before powering the physical windmill.
 
