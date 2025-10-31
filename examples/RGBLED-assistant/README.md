@@ -132,6 +132,9 @@ python rgb_led_assistant.py
 - The Arduino sketch constrains brightness to `0-255`, sets NeoPixel intensity with `setBrightness`, and updates a single LED on each payload.
 - If the OpenAI Assistant opts not to change the LED (because the user asked an unrelated question), the MQTT payload remains unchanged.
 
+![Assistant driving a NeoPixel to warm orange](../../docs/assets/led-demo-figure.jpg)
+![Assistant response reflected as a cool blue LED](../../docs/assets/led-demo-figure2.jpg)
+
 ---
 
 ## Customising the OpenAI assistant

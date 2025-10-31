@@ -128,4 +128,12 @@ Refer to the CHItaly 2025 paper and the *interactions* article for a detailed ex
 
 ---
 
+## Acknowledgements
+
+[![TU Delft StudioLab logo](docs/assets/studiolab-logo.png)](https://studiolab.ide.tudelft.nl/studiolab/)
+
+Prompting Realities was developed with the support of the [TU Delft StudioLab](https://studiolab.ide.tudelft.nl/studiolab/), whose community and facilities helped shape the prototypes and research described here.
+
+---
+
 Maintained by [Mahan Mehrvarz](https://MahanMehrvarz.name) - AI Futures Lab, TU Delft.
