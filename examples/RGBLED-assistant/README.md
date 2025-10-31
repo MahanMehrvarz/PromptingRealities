@@ -80,7 +80,7 @@ Before you build the hardware, you can run a browser-based simulation that mirro
 2. Start the assistant with `python rgb_led_assistant.py`.
 3. Trigger a few requests and watch the simulated LED reflect colour and brightness changes in real time.
 
-![Screenshot of the P5.js RGB LED simulator tuned to the assistant output](../../docs/assets/p5-led-simulation.png)
+![Screenshot of the P5.js RGB LED simulator tuned to the assistant output](../../docs/assets/p5-led-simulation.png?raw=1)
 
 ---
 
