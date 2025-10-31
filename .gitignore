@@ -7,3 +7,4 @@ __pycache__/
 *.env
 .vscode/
 core/P5-demo/config.js
+examples/RGBLED-assistant/p5-led-simulator/config.js

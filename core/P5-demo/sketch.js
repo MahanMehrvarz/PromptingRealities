@@ -16,11 +16,10 @@
  */
 
 // --- MQTT SETTINGS ---
-const CONFIG = window.PROMPTING_REALITIES_CONFIG || {};
-const BROKER = CONFIG.broker || "";
-const TOPIC = CONFIG.topic || "wind";
-const MQTT_USER = CONFIG.username || "";
-const MQTT_PASSWORD = CONFIG.password || "";
+const BROKER = "wss://ide-education.cloud.shiftr.io";
+const MQTT_USER = "ide-education";
+const MQTT_PASSWORD = "slpfhrGJNqRgA7Qw";
+const TOPIC = "wind";
 
 // --- GLOBALS ---
 let client;
@@ -39,42 +38,36 @@ function setup() {
   windmills.push(new Windmill(600, 200, "Old", color(180, 255, 180)));
 
   // Connect to MQTT broker
-  if (!BROKER) {
-    console.warn(
-      "No broker configured. Copy config.example.js to config.js and add your MQTT credentials."
-    );
-  } else {
-    client = mqtt.connect(BROKER, {
-      username: MQTT_USER || undefined,
-      password: MQTT_PASSWORD || undefined,
-    });
+  client = mqtt.connect(BROKER, {
+    username: MQTT_USER,
+    password: MQTT_PASSWORD,
+  });
 
-    client.on("connect", () => {
-      connected = true;
-      console.log("Connected to MQTT broker:", BROKER);
-      client.subscribe(TOPIC);
-    });
+  client.on("connect", () => {
+    connected = true;
+    console.log("Connected to MQTT broker:", BROKER);
+    client.subscribe(TOPIC);
+  });
 
-    client.on("message", (topic, message) => {
-      try {
-        const data = JSON.parse(message.toString());
-        updateFromMQTT(data);
-        lastMsgTime = millis();
-      } catch (err) {
-        console.error("Invalid MQTT message:", err);
-      }
-    });
+  client.on("message", (topic, message) => {
+    try {
+      const data = JSON.parse(message.toString());
+      updateFromMQTT(data);
+      lastMsgTime = millis();
+    } catch (err) {
+      console.error("Invalid MQTT message:", err);
+    }
+  });
 
-    client.on("error", (err) => {
-      console.error("MQTT connection error:", err);
-      connected = false;
-    });
+  client.on("error", (err) => {
+    console.error("MQTT connection error:", err);
+    connected = false;
+  });
 
-    client.on("close", () => {
-      console.warn("MQTT connection closed");
-      connected = false;
-    });
-  }
+  client.on("close", () => {
+    console.warn("MQTT connection closed");
+    connected = false;
+  });
 }
 
 function draw() {
@@ -152,13 +145,8 @@ function drawHUD() {
   textAlign(LEFT);
   textSize(14);
   text("Prompting Realities — Virtual Windmills", 20, 25);
-  const status = connected
-    ? "MQTT Connected"
-    : BROKER
-    ? "MQTT Disconnected"
-    : "MQTT Disabled";
-  text(status, 20, 45);
-  text(`Broker: ${BROKER || "not configured"}`, 20, 65);
+  text(connected ? "MQTT Connected" : "MQTT Disconnected", 20, 45);
+  text(`Broker: ${BROKER}`, 20, 65);
   text(`Topic: ${TOPIC}`, 20, 85);
   if (connected) text(`Last update: ${(millis() - lastMsgTime) / 1000 | 0}s ago`, 20, 105);
 }
