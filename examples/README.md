@@ -23,3 +23,4 @@ Projects for boards running CircuitPython.
 - **[RGBLED-SIngle](circuitpython/RGBLED-SIngle/)** — Single RGB LED control
 - **[RGBLED-dichotomy](circuitpython/RGBLED-dichotomy/)** — Dual LED environmental indicators
 - **[Vibration-Stories](circuitpython/Vibration-Stories/)** — Vibration motor patterns
+- **[rotation-master](circuitpython/rotation-master/)** — Servo motor control

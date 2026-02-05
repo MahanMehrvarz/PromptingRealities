@@ -1,0 +1,38 @@
+{
+  "name": "servo_response",
+  "schema": {
+    "type": "object",
+    "required": [
+      "answer",
+      "MQTT_value"
+    ],
+    "properties": {
+      "answer": {
+        "type": "string"
+      },
+      "MQTT_value": {
+        "type": "object",
+        "required": [
+          "steps"
+        ],
+        "properties": {
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2
+            },
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "strict": true
+}
