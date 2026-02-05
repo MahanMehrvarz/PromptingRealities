@@ -1,0 +1,39 @@
+{
+  "name": "vibration_sequence",
+  "schema": {
+    "type": "object",
+    "required": [
+      "answer",
+      "MQTT_value"
+    ],
+    "properties": {
+      "answer": {
+        "type": "string"
+      },
+      "MQTT_value": {
+        "type": "object",
+        "required": [
+          "sequence"
+        ],
+        "properties": {
+          "sequence": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3
+            },
+            "minItems": 1,
+            "description": "Variable-length list of vibration notes; each note is [intensity, duration, pause]."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "strict": true
+}

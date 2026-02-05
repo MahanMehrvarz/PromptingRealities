@@ -1,0 +1,47 @@
+{
+  "name": "circle_sequence",
+  "schema": {
+    "type": "object",
+    "required": [
+      "answer",
+      "MQTT_value"
+    ],
+    "properties": {
+      "answer": {
+        "type": "string"
+      },
+      "MQTT_value": {
+        "type": "object",
+        "required": [
+          "led-d7",
+          "led-d13"
+        ],
+        "properties": {
+          "led-d7": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "exclusiveMaximum": 256,
+              "exclusiveMinimum": -1
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "led-d13": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "exclusiveMaximum": 256,
+              "exclusiveMinimum": -1
+            },
+            "minItems": 4,
+            "maxItems": 4
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "strict": true
+}

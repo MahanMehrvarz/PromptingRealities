@@ -1,0 +1,34 @@
+{
+  "name": "led",
+  "schema": {
+    "type": "object",
+    "required": [
+      "answer",
+      "MQTT_value"
+    ],
+    "properties": {
+      "answer": {
+        "type": "string"
+      },
+      "MQTT_value": {
+        "type": "object",
+        "required": [
+          "led"
+        ],
+        "properties": {
+          "led": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 4,
+            "minItems": 4
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "strict": true
+}
