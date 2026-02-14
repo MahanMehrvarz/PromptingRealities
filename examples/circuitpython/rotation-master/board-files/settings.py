@@ -1,12 +1,10 @@
-# Write your code here :-)
 settings = {
-    "ssid": "PromptingRealities",
-    "password": "This2ShallPass",
-    "mqtt_clientid": "novarchee",  # Unique client ID for your device
+    "ssid": "<wifiName>",  # Your WiFi SSID
+    "password": "<wifipass>",  # Your WiFi Password
+    "mqtt_clientid": "<your-thing-name>",  # Unique client ID for your device
     "broker": "ide-education.cloud.shiftr.io",  # MQTT Broker URL
     "mqtt_user": "ide-education",  # MQTT Username
-    "mqtt_password": "slpfhrGJNqRgA7Qw",  # MQTT Password
-    "mqtt_topic": "rotato",  # Default MQTT topic
-    "mqtt_port": 1883  # Default MQTT Port
+    "mqtt_password": "<mqttpassword>",  # MQTT Password
+    "mqtt_port": 1883,  # Default MQTT Port
+    "mqtt_topic": "<yourtopic>"  # MQTT topic for LED control
 }
-
