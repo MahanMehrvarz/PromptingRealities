@@ -136,4 +136,16 @@ Prompting Realities was developed with the support of the [TU Delft StudioLab](h
 
 ---
 
+## License
+
+This project is licensed under the
+[Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
+
+You may share and adapt the material for non-commercial purposes, with
+attribution. For commercial use, please contact the author to arrange permission.
+
+See [`LICENSE`](./LICENSE) for the full text.
+
+---
+
 Maintained by [Mahan Mehrvarz](https://Mahanmehrvarz.name) 
